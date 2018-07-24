@@ -8,7 +8,6 @@
 
 namespace memcached\exceptions;
 
-
 class CommandException extends \Exception
 {
     protected $message = "Cannot run command %s, reason: %s";

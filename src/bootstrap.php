@@ -6,11 +6,13 @@
  * Time: 2:24 PM
  */
 
-class AutoLoader {
-    public static function loader($class = "") {
+class AutoLoader
+{
+    public static function loader($class = "")
+    {
         $file =  str_replace("\\", "/", str_replace("memcached\\", "", $class));
         $ext = ".php";
-        if(file_exists(__DIR__ .DIRECTORY_SEPARATOR. $file . $ext)) {
+        if (file_exists(__DIR__ .DIRECTORY_SEPARATOR. $file . $ext)) {
             require_once __DIR__ .DIRECTORY_SEPARATOR. $file . $ext;
         }
         return false;

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  php:
+    image: memc
+    volumes:
+      - ./:/app
+    ports:
+      - '11211:11211'
+

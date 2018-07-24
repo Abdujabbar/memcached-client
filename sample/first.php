@@ -9,43 +9,31 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . "/../src/bootstrap.php";
 
-
-//$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 //
-//
-//$connection = socket_connect($socket, "0.0.0.0", 11211);
-//
-//$command = "get hello\r\n";
-//$res = socket_write($socket, $command, mb_strlen($command));
-//
-//var_dump($res);
-//
-//
-//while($out = socket_read($socket, 2048)) {
-//    if(trim($out) === "END") {
-//        break;
-//    }
-//    var_dump($out);
+//try {
+//    $socketClient = new \memcached\Client("127.0.0.1", 11211);
+//} catch (Exception $e) {
+//    echo $e->getMessage() . "\n";
+//    die();
 //}
-
-
-
-
-try {
-    $socketClient = new \memcached\Client("0.0.0.0", 11211);
-} catch (Exception $e) {
-    echo $e->getMessage() . "\n";
-    die();
-}
-
-try {
-    $socketClient->connect();
-} catch (\memcached\exceptions\CommandException $e) {
-    echo $e->getMessage() . "\n";
-    die();
-}
-
-
-//$socketClient->set("hello", "world", 3600);
-$out = $socketClient->get("hello");
-var_dump($out);
+//
+//try {
+//    $socketClient->connect();
+//} catch (\memcached\exceptions\CommandException $e) {
+//    echo $e->getMessage() . "\n";
+//    die();
+//}
+//
+//
+//$obj = [1,2,3,4,5,6,7,8];
+//
+//$socketClient->set("obj", $obj, 2);
+//
+//$out = $socketClient->get("obj");
+//
+//var_dump($out);
+//
+//sleep(3);
+//
+//
+//var_dump($socketClient->get("obj"));
