@@ -19,6 +19,14 @@ class SocketTest extends \PHPUnit\Framework\TestCase
         $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
     }
 
+    public function testUnavailableSocket()
+    {
+        $this->expectExceptionMessage("Cannot run command socket_connect, reason: Operation timed out");
+        $invalidAddress = "123.123.123.123";
+        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
+        $socket->connect();
+    }
+
     public function testServerPortException()
     {
         $this->expectExceptionMessage("Not valid port number, port number must be an int and in range 0 <= port <= 65536");

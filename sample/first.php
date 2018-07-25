@@ -10,7 +10,7 @@
 require_once __DIR__ . DIRECTORY_SEPARATOR . "/../src/bootstrap.php";
 
 try {
-    $socketClient = new \memcached\Client("0.0.0.0", 11211);
+    $socketClient = new \memcached\Client("123.123.123.123", 11211);
     $socketClient->connect();
 } catch (Exception $e) {
     echo $e->getMessage() . "\n";

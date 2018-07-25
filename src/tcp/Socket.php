@@ -26,6 +26,7 @@ class Socket
      */
     public function __construct($address, $port)
     {
+        ini_set("default_socket_timeout", 5);
         $server = filter_var($address, FILTER_VALIDATE_IP);
         if (!$server) {
             throw new \InvalidArgumentException("Not valid ip address");
@@ -39,7 +40,7 @@ class Socket
         $this->address = $address;
         $this->port = $port;
 
-        $this->resource = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        $this->resource = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if (!$this->resource) {
             throw new CommandException("socket_create", socket_strerror(socket_last_error()));
         }
@@ -55,7 +56,7 @@ class Socket
      */
     public function connect()
     {
-        $this->connected = socket_connect($this->resource, $this->address, $this->port);
+        $this->connected = @socket_connect($this->resource, $this->address, $this->port);
         if (!$this->connected) {
             throw new CommandException("socket_connect", socket_strerror(socket_last_error()));
         }
