@@ -9,4 +9,4 @@ before_install:
   - composer install
 
 script:
-  - vendor/bin/phpunit --colors --bootstrap=src/bootstrap.php Tests
+  - vendor/bin/phpunit --colors --bootstrap=src/bootstrap.php tests
