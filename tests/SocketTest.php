@@ -23,7 +23,7 @@ class SocketTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectExceptionMessage("Cannot run command socket_connect, reason: Operation timed out");
         $invalidAddress = "123.123.123.123";
-        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
+        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort, 10);
         $socket->connect();
     }
 

@@ -16,17 +16,19 @@ class Socket
     protected $address;
     protected $port;
     protected $connected;
+    protected $timeout;
+
 
     /**
      * Socket constructor.
      * @param $address
      * @param $port
+     * @param int $timeout
      * @throws CommandException
-     * @throws \Exception
      */
-    public function __construct($address, $port)
+    public function __construct($address, $port, $timeout = 60)
     {
-        ini_set("default_socket_timeout", 5);
+        ini_set("default_socket_timeout", $timeout);
         $server = filter_var($address, FILTER_VALIDATE_IP);
         if (!$server) {
             throw new \InvalidArgumentException("Not valid ip address");
