@@ -47,12 +47,21 @@ class Client
         $this->socket->connect();
     }
 
-
+    /**
+     * @param string $key
+     * @param $input
+     * @param int $time
+     * @return array
+     */
     final public function set(string $key, $input, int $time)
     {
         return $this->socket->write($this->buildSetCommand($key, $input, $time));
     }
 
+    /**
+     * @param $key
+     * @return mixed|null
+     */
     final public function get($key)
     {
         $out = $this->socket->write($this->buildGetCommand($key));
@@ -62,32 +71,56 @@ class Client
         return null;
     }
 
+    /**
+     * @param $key
+     * @return array
+     */
     final public function delete($key)
     {
         return $this->socket->write($this->buildDeleteCommand($key));
     }
 
+    /**
+     * @return void
+     */
     final public function flush()
     {
         $this->socket->write($this->buildFlushCommand());
     }
 
+    /**
+     * @param string $key
+     * @param $input
+     * @param int $time
+     * @return string
+     */
     private function buildSetCommand(string $key, $input, int $time)
     {
         $buffer = serialize($input);
         return sprintf("set %s %d %d %s", $key, 0, $time, mb_strlen($buffer)) . "\r\n{$buffer}\r\n";
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     protected function buildGetCommand($key)
     {
         return "get {$key}\r\n";
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     protected function buildDeleteCommand($key)
     {
         return "delete {$key}\r\n";
     }
 
+    /**
+     * @return string
+     */
     protected function buildFlushCommand()
     {
         return "flush_all\r\n";

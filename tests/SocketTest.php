@@ -12,14 +12,14 @@ class SocketTest extends \PHPUnit\Framework\TestCase
     protected $validPort = 11211;
 
 
-    public function testServerAddress()
+    public function testServerAddressException()
     {
         $this->expectExceptionMessage("Not valid ip address");
         $invalidAddress = "dnsjakdnsjka";
         $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
     }
 
-    public function testServerPort()
+    public function testServerPortException()
     {
         $this->expectExceptionMessage("Not valid port number, port number must be an int and in range 0 <= port <= 65536");
         $invalidPort = -123;
