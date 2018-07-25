@@ -14,22 +14,22 @@ class SocketTest extends \PHPUnit\Framework\TestCase
 
     public function testServerAddressException()
     {
-        $this->expectExceptionMessage("Not valid ip address");
+        $this->expectException("\InvalidArgumentException");
         $invalidAddress = "dnsjakdnsjka";
         $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
     }
 
     public function testUnavailableSocket()
     {
-        $this->expectExceptionMessage("Cannot run command socket_connect, reason: Operation timed out");
+        $this->expectException("\memcached\\exceptions\CommandException");
         $invalidAddress = "123.123.123.123";
-        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort, 10);
+        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
         $socket->connect();
     }
 
     public function testServerPortException()
     {
-        $this->expectExceptionMessage("Not valid port number, port number must be an int and in range 0 <= port <= 65536");
+        $this->expectException("\InvalidArgumentException");
         $invalidPort = -123;
         $socket = new \memcached\tcp\Socket($this->validAddress, $invalidPort);
     }
