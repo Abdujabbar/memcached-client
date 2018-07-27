@@ -30,4 +30,4 @@ then you can run tests
 Travis ci status
 ==================================
 
-[![Build Status](https://api.travis-ci.org/Abdujabbor/memcached-client.svg?branch=master)](https://github.com/Abdujabbor/memcached-client)
+[![Build Status](https://api.travis-ci.org/Abdujabbor/memcached-client.svg?branch=master)](https://travis-ci.org/Abdujabbor/memcached-client)
