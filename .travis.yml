@@ -6,6 +6,3 @@ php:
 before_install:
   - travis_retry composer self-update
   - composer install
-
-script:
-  - vendor/bin/phpunit --colors --bootstrap=src/bootstrap.php tests
