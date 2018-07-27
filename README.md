@@ -23,7 +23,7 @@ on root directory
 then you can run tests
 
 `
-./vendor/bin/phpunit --colors --bootstrap=./src/bootstrap.php ./tests/
+phpunit
 `
 
 
