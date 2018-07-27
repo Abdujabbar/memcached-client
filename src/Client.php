@@ -7,6 +7,10 @@
  */
 namespace memcached;
 
+use memcached\commands\Delete;
+use memcached\commands\FlushAll;
+use memcached\commands\Get;
+use memcached\commands\Set;
 use memcached\tcp\Socket;
 
 class Client
@@ -55,7 +59,13 @@ class Client
      */
     final public function set(string $key, $input, int $time)
     {
-        return $this->socket->write($this->buildSetCommand($key, $input, $time));
+        try {
+            $command = new Set(['key' => $key, 'value' => serialize($input), 'time' => $time]);
+            return $this->socket->write($command->generate());
+        } catch (\Exception $e) {
+            echo $e->getMessage() . "\r\n";
+            die();
+        }
     }
 
     /**
@@ -64,9 +74,15 @@ class Client
      */
     final public function get($key)
     {
-        $out = $this->socket->write($this->buildGetCommand($key));
-        if (count($out) > 0) {
-            return unserialize($out[count($out) - 1]);
+        try {
+            $command = new Get(['key' => $key]);
+            $out = $this->socket->write($command->generate());
+            if (count($out) > 0) {
+                return unserialize($out[count($out) - 1]);
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage(). "\r\n";
+            die();
         }
         return null;
     }
@@ -77,52 +93,26 @@ class Client
      */
     final public function delete($key)
     {
-        return $this->socket->write($this->buildDeleteCommand($key));
+        try {
+            $command = new Delete(['key' => $key]);
+            return $this->socket->write($command->generate());
+        } catch (\Exception $exception) {
+            echo $exception->getMessage() . "\r\n";
+            die();
+        }
     }
 
     /**
-     * @return void
+     * @return array
      */
     final public function flush()
     {
-        $this->socket->write($this->buildFlushCommand());
-    }
-
-    /**
-     * @param string $key
-     * @param $input
-     * @param int $time
-     * @return string
-     */
-    private function buildSetCommand(string $key, $input, int $time)
-    {
-        $buffer = serialize($input);
-        return sprintf("set %s %d %d %s", $key, 0, $time, mb_strlen($buffer)) . "\r\n{$buffer}\r\n";
-    }
-
-    /**
-     * @param $key
-     * @return string
-     */
-    protected function buildGetCommand($key)
-    {
-        return "get {$key}\r\n";
-    }
-
-    /**
-     * @param $key
-     * @return string
-     */
-    protected function buildDeleteCommand($key)
-    {
-        return "delete {$key}\r\n";
-    }
-
-    /**
-     * @return string
-     */
-    protected function buildFlushCommand()
-    {
-        return "flush_all\r\n";
+        try {
+            $command = new FlushAll();
+            return $this->socket->write($command->generate());
+        } catch (\Exception $exception) {
+            echo $exception->getMessage() . "\r\n";
+            die();
+        }
     }
 }

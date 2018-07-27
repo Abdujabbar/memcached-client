@@ -32,9 +32,14 @@ class Socket
             throw new \InvalidArgumentException("Not valid ip address");
         }
 
-        $port = filter_var($port, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65536]]);
+        $port = filter_var(
+                        $port,
+                  FILTER_VALIDATE_INT,
+                        ['options' => ['min_range' => 1, 'max_range' => 65536]]
+        );
         if (!$port) {
-            throw new \InvalidArgumentException("Not valid port number, port number must be an int and in range 0 <= port <= 65536");
+            throw new \InvalidArgumentException("Not valid port number,".
+                            "port number must be an int and in range 0 <= port <= 65536");
         }
 
         $this->address = $address;
