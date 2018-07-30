@@ -24,7 +24,6 @@ class SocketTest extends \PHPUnit\Framework\TestCase
         $this->expectException("\memcached\\exceptions\CommandException");
         $invalidAddress = "123.123.123.123";
         $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
-        $socket->connect();
     }
 
     public function testServerPortException()
@@ -38,7 +37,6 @@ class SocketTest extends \PHPUnit\Framework\TestCase
     {
         try {
             $socket = new \memcached\tcp\Socket($this->validAddress, $this->validPort);
-            $socket->connect();
         } catch (Exception $e) {
             echo $e->getMessage() . "\n";
             die();
@@ -51,13 +49,12 @@ class SocketTest extends \PHPUnit\Framework\TestCase
     {
         try {
             $socket = new \memcached\tcp\Socket($this->validAddress, $this->validPort);
-            $socket->connect();
         } catch (Exception $e) {
             echo $e->getMessage() . "\n";
             die();
         }
-        $this->assertEquals(true, $socket->isConnected());
+        $this->assertEquals(true, is_resource($socket->getResource()));
         $socket->close();
-        $this->assertEquals(false, $socket->isConnected());
+        $this->assertEquals(false, is_resource($socket->getResource()));
     }
 }

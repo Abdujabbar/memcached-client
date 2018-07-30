@@ -8,11 +8,11 @@
 
 namespace memcached\commands;
 
-class Get extends ICommand
+class Get extends BaseCommand implements ICommand
 {
     protected $requiredArgs = ['key'];
     public function generate(): string
     {
-        return sprintf("get %s\r\n", $this->args['key']);
+        return sprintf("get %s".self::END_LINE, $this->args['key']);
     }
 }

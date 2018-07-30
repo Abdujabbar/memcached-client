@@ -31,8 +31,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $key = "sampleString";
         $content = "sampleStringContent";
-        $this->client->set($key, $content, 1000);
-
+        $this->assertEquals($this->client->set($key, $content, 1000), true);
         $this->assertEquals($content, $this->client->get($key));
     }
 
@@ -41,12 +40,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $key = "index";
         $content = new stdClass();
-        $this->client->set($key, $content, 1000);
+        $this->assertEquals($this->client->set($key, $content, 1000), true);
 
         $this->assertEquals($content, $this->client->get($key));
-
-        $this->client->delete($key);
-
+        try {
+            $this->client->delete($key);
+        } catch (Exception $e) {
+        }
         $this->assertEmpty($this->client->get($key));
     }
 
@@ -54,7 +54,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $key = "values";
         $content = [1,2,3];
-        $this->client->set($key, $content, 2);
+        $this->assertEquals($this->client->set($key, $content, 2), true);
 
         $this->assertEquals($content, $this->client->get($key));
 
@@ -67,13 +67,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $key1 = "values1";
         $content1 = [1,2,3];
-        $this->client->set($key1, $content1, 10);
+        $this->assertEquals($this->client->set($key1, $content1, 10), true);
         $key2 = "values2";
         $content2 = [1,2,3,4,5];
-        $this->client->set($key2, $content2, 10);
+        $this->assertEquals($this->client->set($key2, $content2, 10), true);
         $this->assertEquals($content1, $this->client->get($key1));
         $this->assertEquals($content2, $this->client->get($key2));
-        $this->client->flush();
+        $this->assertEquals($this->client->flush(), true);
         $this->assertEmpty($this->client->get($key1));
         $this->assertEmpty($this->client->get($key2));
     }

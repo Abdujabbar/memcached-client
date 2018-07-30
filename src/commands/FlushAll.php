@@ -8,10 +8,10 @@
 
 namespace memcached\commands;
 
-class FlushAll extends ICommand
+class FlushAll extends BaseCommand implements ICommand
 {
     public function generate(): string
     {
-        return sprintf("flush_all\r\n");
+        return sprintf("flush_all".self::END_LINE);
     }
 }

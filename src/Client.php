@@ -47,25 +47,19 @@ class Client
     final public function connect()
     {
         $this->socket = new Socket($this->server, $this->port);
-
-        $this->socket->connect();
     }
 
     /**
      * @param string $key
      * @param $input
      * @param int $time
-     * @return array
+     * @return bool
      */
     final public function set(string $key, $input, int $time)
     {
-        try {
-            $command = new Set(['key' => $key, 'value' => serialize($input), 'time' => $time]);
-            return $this->socket->write($command->generate());
-        } catch (\Exception $e) {
-            echo $e->getMessage() . "\r\n";
-            die();
-        }
+        $command = new Set(['key' => $key, 'value' => serialize($input), 'time' => $time]);
+        $outLines = $this->socket->write($command->generate());
+        return trim($outLines[count($outLines) - 1]) === "STORED";
     }
 
     /**
@@ -74,45 +68,36 @@ class Client
      */
     final public function get($key)
     {
-        try {
-            $command = new Get(['key' => $key]);
-            $out = $this->socket->write($command->generate());
-            if (count($out) > 0) {
-                return unserialize($out[count($out) - 1]);
-            }
-        } catch (\Exception $e) {
-            echo $e->getMessage(). "\r\n";
-            die();
+        $command = new Get(['key' => $key]);
+        $outLines = $this->socket->write($command->generate());
+        if (count($outLines) >= 2) {
+            return unserialize($outLines[count($outLines) - 2]);
         }
         return null;
     }
 
     /**
      * @param $key
-     * @return array
+     * @return bool
+     * @throws \Exception
      */
     final public function delete($key)
     {
-        try {
-            $command = new Delete(['key' => $key]);
-            return $this->socket->write($command->generate());
-        } catch (\Exception $exception) {
-            echo $exception->getMessage() . "\r\n";
-            die();
+        $command = new Delete(['key' => $key]);
+        $outLines = $this->socket->write($command->generate());
+        if (count($outLines) > 0) {
+            return "DELETED" === trim($outLines[count($outLines) - 1]);
         }
+        throw new \Exception(implode("\n", $outLines));
     }
 
     /**
-     * @return array
+     * @return bool
      */
     final public function flush()
     {
-        try {
-            $command = new FlushAll();
-            return $this->socket->write($command->generate());
-        } catch (\Exception $exception) {
-            echo $exception->getMessage() . "\r\n";
-            die();
-        }
+        $command = new FlushAll();
+        $outLines =  $this->socket->write($command->generate());
+        return $outLines[count($outLines) - 1] === "OK";
     }
 }

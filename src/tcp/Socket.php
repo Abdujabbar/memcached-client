@@ -15,7 +15,6 @@ class Socket
     protected $resource;
     protected $address;
     protected $port;
-    protected $connected;
     protected $timeout;
 
 
@@ -44,8 +43,8 @@ class Socket
 
         $this->address = $address;
         $this->port = $port;
-
-        $this->resource = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        $p = null;
+        $this->resource = @fsockopen($server, $port, $p, $p, 1);
         if (!$this->resource) {
             throw new CommandException("socket_create", socket_strerror(socket_last_error()));
         }
@@ -56,44 +55,25 @@ class Socket
         return $this->resource;
     }
 
-    /**
-     * @throws CommandException
-     */
-    public function connect()
-    {
-        $this->connected = @socket_connect($this->resource, $this->address, $this->port);
-        if (!$this->connected) {
-            throw new CommandException("socket_connect", socket_strerror(socket_last_error()));
-        }
-    }
 
-    public function isConnected()
-    {
-        return $this->connected;
-    }
 
     public function close()
     {
-        $this->connected = false;
-        socket_close($this->resource);
+        fclose($this->resource);
     }
 
 
     public function write($buffer)
     {
-        if ($this->connected) {
-            socket_write($this->resource, $buffer, mb_strlen($buffer));
-        }
-        $outResult = [];
-        while ($out = socket_read($this->resource, 2048)) {
-            $outLines = array_map('trim', array_filter(explode("\r\n", $out)));
-            $endLine = array_pop($outLines);
-            $outResult = $outLines;
-            if (in_array($endLine, $this->getEndlineCommands())) {
+        fwrite($this->resource, $buffer);
+        $outLines = [];
+        while (($line = fgets($this->resource))) {
+            $outLines[] = trim($line);
+            if (in_array(trim($line), $this->getEndlineCommands())) {
                 break;
             }
         }
-        return $outResult;
+        return $outLines;
     }
 
 

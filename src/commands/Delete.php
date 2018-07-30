@@ -8,11 +8,11 @@
 
 namespace memcached\commands;
 
-class Delete extends ICommand
+class Delete extends BaseCommand implements ICommand
 {
     protected $requiredArgs = ['key'];
     public function generate(): string
     {
-        return sprintf("delete %s\r\n", $this->args['key']);
+        return sprintf("delete %s".self::END_LINE, $this->args['key']);
     }
 }
