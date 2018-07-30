@@ -43,8 +43,8 @@ class Socket
 
         $this->address = $address;
         $this->port = $port;
-        $p = null;
-        $this->resource = @fsockopen($server, $port, $p, $p, 1);
+        $this->resource = @fsockopen($server, $port);
+
         if (!$this->resource) {
             throw new CommandException("socket_create", socket_strerror(socket_last_error()));
         }
