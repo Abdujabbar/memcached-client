@@ -16,27 +16,27 @@ class SocketTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException("\InvalidArgumentException");
         $invalidAddress = "dnsjakdnsjka";
-        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
+        $socket = new abdujabbor\memcached\tcp\Socket($invalidAddress, $this->validPort);
     }
 
     public function testUnavailableSocket()
     {
-        $this->expectException("\memcached\\exceptions\CommandException");
+        $this->expectException("\abdujabbor\\memcached\\exceptions\CommandException");
         $invalidAddress = "123.123.123.123";
-        $socket = new \memcached\tcp\Socket($invalidAddress, $this->validPort);
+        $socket = new abdujabbor\memcached\tcp\Socket($invalidAddress, $this->validPort);
     }
 
     public function testServerPortException()
     {
         $this->expectException("\InvalidArgumentException");
         $invalidPort = -123;
-        $socket = new \memcached\tcp\Socket($this->validAddress, $invalidPort);
+        $socket = new abdujabbor\memcached\tcp\Socket($this->validAddress, $invalidPort);
     }
 
     public function testResource()
     {
         try {
-            $socket = new \memcached\tcp\Socket($this->validAddress, $this->validPort);
+            $socket = new abdujabbor\memcached\tcp\Socket($this->validAddress, $this->validPort);
         } catch (Exception $e) {
             echo $e->getMessage() . "\n";
             die();
@@ -48,7 +48,7 @@ class SocketTest extends \PHPUnit\Framework\TestCase
     public function testConnectAndClose()
     {
         try {
-            $socket = new \memcached\tcp\Socket($this->validAddress, $this->validPort);
+            $socket = new abdujabbor\memcached\tcp\Socket($this->validAddress, $this->validPort);
         } catch (Exception $e) {
             echo $e->getMessage() . "\n";
             die();

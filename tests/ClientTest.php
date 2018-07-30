@@ -11,12 +11,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     protected $validAddress = "127.0.0.1";
     protected $validPort = 11211;
     /**
-     * @var $client \memcached\Client
+     * @var $client abdujabbor\memcached\Client
      */
     protected $client;
     public function setUp()
     {
-        $this->client = new \memcached\Client($this->validAddress, $this->validPort);
+        $this->client = new abdujabbor\memcached\Client($this->validAddress, $this->validPort);
         try {
             $this->client->connect();
         } catch (Exception $exception) {

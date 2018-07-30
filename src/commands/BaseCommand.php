@@ -6,7 +6,7 @@
  * Time: 11:12 AM
  */
 
-namespace memcached\commands;
+namespace abdujabbor\memcached\commands;
 
 class BaseCommand
 {

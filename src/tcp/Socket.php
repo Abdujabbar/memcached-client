@@ -6,9 +6,9 @@
  * Time: 11:24 AM
  */
 
-namespace memcached\tcp;
+namespace abdujabbor\memcached\tcp;
 
-use memcached\exceptions\CommandException;
+use abdujabbor\memcached\exceptions\CommandException;
 
 class Socket
 {

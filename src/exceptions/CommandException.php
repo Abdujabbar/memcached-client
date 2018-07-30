@@ -6,7 +6,7 @@
  * Time: 11:29 AM
  */
 
-namespace memcached\exceptions;
+namespace abdujabbor\memcached\exceptions;
 
 class CommandException extends \Exception
 {

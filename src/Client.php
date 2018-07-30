@@ -5,13 +5,13 @@
  * Date: 7/23/18
  * Time: 11:02 AM
  */
-namespace memcached;
+namespace abdujabbor\memcached;
 
-use memcached\commands\Delete;
-use memcached\commands\FlushAll;
-use memcached\commands\Get;
-use memcached\commands\Set;
-use memcached\tcp\Socket;
+use abdujabbor\memcached\commands\Delete;
+use abdujabbor\memcached\commands\FlushAll;
+use abdujabbor\memcached\commands\Get;
+use abdujabbor\memcached\commands\Set;
+use abdujabbor\memcached\tcp\Socket;
 
 class Client
 {

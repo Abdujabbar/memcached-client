@@ -6,7 +6,7 @@
  * Time: 10:34 AM
  */
 
-namespace memcached\commands;
+namespace abdujabbor\memcached\commands;
 
 interface ICommand
 {

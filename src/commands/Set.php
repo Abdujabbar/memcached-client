@@ -6,7 +6,7 @@
  * Time: 11:13 AM
  */
 
-namespace memcached\commands;
+namespace abdujabbor\memcached\commands;
 
 class Set extends BaseCommand implements ICommand
 {

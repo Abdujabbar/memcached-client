@@ -6,7 +6,7 @@
  * Time: 11:57 AM
  */
 
-namespace memcached\commands;
+namespace abdujabbor\memcached\commands;
 
 class FlushAll extends BaseCommand implements ICommand
 {

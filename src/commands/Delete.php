@@ -6,7 +6,7 @@
  * Time: 11:56 AM
  */
 
-namespace memcached\commands;
+namespace abdujabbor\memcached\commands;
 
 class Delete extends BaseCommand implements ICommand
 {

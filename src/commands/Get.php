@@ -6,7 +6,7 @@
  * Time: 11:54 AM
  */
 
-namespace memcached\commands;
+namespace abdujabbor\memcached\commands;
 
 class Get extends BaseCommand implements ICommand
 {
