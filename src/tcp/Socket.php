@@ -46,7 +46,7 @@ class Socket
         $this->resource = @fsockopen($server, $port);
 
         if (!$this->resource) {
-            throw new CommandException("socket_create", socket_strerror(socket_last_error()));
+            throw new CommandException("fsockopen", socket_strerror(socket_last_error()));
         }
     }
 
