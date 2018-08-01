@@ -11,7 +11,7 @@ namespace abdujabbor\memcached\commands;
 class Delete extends BaseCommand implements ICommand
 {
     protected $requiredArgs = ['key'];
-    public function generate(): string
+    public function generate()
     {
         return sprintf("delete %s".self::END_LINE, $this->args['key']);
     }

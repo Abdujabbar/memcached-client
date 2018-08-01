@@ -10,7 +10,7 @@ namespace abdujabbor\memcached\commands;
 
 class FlushAll extends BaseCommand implements ICommand
 {
-    public function generate(): string
+    public function generate()
     {
         return sprintf("flush_all".self::END_LINE);
     }

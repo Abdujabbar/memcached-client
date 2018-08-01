@@ -12,6 +12,9 @@ use abdujabbor\memcached\exceptions\CommandException;
 
 class Socket
 {
+    /**
+     * @var $resource
+     */
     protected $resource;
     protected $address;
     protected $port;
@@ -20,11 +23,11 @@ class Socket
 
     /**
      * Socket constructor.
-     * @param $address
-     * @param $port
+     * @param string $address
+     * @param int $port
      * @throws CommandException
      */
-    public function __construct($address, $port)
+    public function __construct($address = "", $port = 11211)
     {
         $server = filter_var($address, FILTER_VALIDATE_IP);
         if (!$server) {
@@ -50,20 +53,28 @@ class Socket
         }
     }
 
+    /**
+     * @return resource
+     */
     public function getResource()
     {
         return $this->resource;
     }
 
 
-
+    /**
+     * @void
+     */
     public function close()
     {
         fclose($this->resource);
     }
 
-
-    public function write($buffer)
+    /**
+     * @param string $buffer
+     * @return array
+     */
+    public function write($buffer = "")
     {
         fwrite($this->resource, $buffer);
         $outLines = [];
@@ -76,7 +87,9 @@ class Socket
         return $outLines;
     }
 
-
+    /**
+     * @return array
+     */
     private function getEndlineCommands()
     {
         return ["END", "STORED", "NOT_STORED", "EXISTS", "NOT_FOUND", "DELETED", "ERROR", "OK"];

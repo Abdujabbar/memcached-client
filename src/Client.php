@@ -30,10 +30,10 @@ class Client
 
     /**
      * Client constructor.
-     * @param $server
-     * @param $port
+     * @param string $server
+     * @param int $port
      */
-    public function __construct($server, $port)
+    public function __construct($server = "", $port = 11211)
     {
         $this->server = $server;
         $this->port = $port;
@@ -51,11 +51,11 @@ class Client
 
     /**
      * @param string $key
-     * @param $input
+     * @param string $input
      * @param int $time
      * @return bool
      */
-    final public function set(string $key, $input, int $time)
+    final public function set($key = "", $input = "", $time = 10)
     {
         $command = new Set(['key' => $key, 'value' => serialize($input), 'time' => $time]);
         $outLines = $this->socket->write($command->generate());
@@ -63,10 +63,10 @@ class Client
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed|null
      */
-    final public function get($key)
+    final public function get($key = "")
     {
         $command = new Get(['key' => $key]);
         $outLines = $this->socket->write($command->generate());
@@ -77,11 +77,11 @@ class Client
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return bool
      * @throws \Exception
      */
-    final public function delete($key)
+    final public function delete($key = "")
     {
         $command = new Delete(['key' => $key]);
         $outLines = $this->socket->write($command->generate());

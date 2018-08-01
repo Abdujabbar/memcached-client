@@ -14,7 +14,7 @@ class BaseCommand
     protected $errors = [];
     protected $requiredArgs = [];
     const END_LINE = "\r\n";
-    public function __construct(array $args = [])
+    public function __construct($args = [])
     {
         $this->args = $this->filterArgs($args);
         if (!$this->validateArgs()) {
@@ -22,7 +22,7 @@ class BaseCommand
         }
     }
 
-    public function validateArgs(): bool
+    public function validateArgs()
     {
         foreach ($this->requiredArgs as $attribute) {
             if (empty($this->args[$attribute])) {
@@ -40,10 +40,10 @@ class BaseCommand
 
     public function hasError()
     {
-        return count($this->errors);
+        return count($this->getErrors());
     }
 
-    public function filterArgs(array $args = [])
+    public function filterArgs($args = [])
     {
         if (count($this->requiredArgs)) {
             $allowed = $this->requiredArgs;

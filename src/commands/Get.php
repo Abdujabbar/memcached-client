@@ -11,7 +11,7 @@ namespace abdujabbor\memcached\commands;
 class Get extends BaseCommand implements ICommand
 {
     protected $requiredArgs = ['key'];
-    public function generate(): string
+    public function generate()
     {
         return sprintf("get %s".self::END_LINE, $this->args['key']);
     }

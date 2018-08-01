@@ -10,5 +10,5 @@ namespace abdujabbor\memcached\commands;
 
 interface ICommand
 {
-    public function generate(): string;
+    public function generate();
 }

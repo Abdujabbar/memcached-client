@@ -11,7 +11,13 @@ namespace abdujabbor\memcached\exceptions;
 class CommandException extends \Exception
 {
     protected $message = "Cannot run command %s, reason: %s";
-    public function __construct($func, $reason)
+
+    /**
+     * CommandException constructor.
+     * @param string $func
+     * @param string $reason
+     */
+    public function __construct($func = "", $reason = "")
     {
         $this->message = sprintf($this->message, $func, $reason);
         parent::__construct($this->message, 0, null);
