@@ -1,11 +1,13 @@
 {
     "require-dev": {
-        "satooshi/php-coveralls": "~1.0",
         "phpunit/phpunit": "^7"
     },
     "autoload": {
         "psr-4": {
             "abdujabbor\\memcached\\": "src/"
         }
+    },
+    "require": {
+        "php-coveralls/php-coveralls": "^2.1"
     }
 }
