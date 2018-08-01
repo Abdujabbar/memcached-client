@@ -85,8 +85,8 @@ class Client
     {
         $command = new Delete(['key' => $key]);
         $outLines = $this->socket->write($command->generate());
-        if (count($outLines) > 0) {
-            return "DELETED" === trim($outLines[count($outLines) - 1]);
+        if (count($outLines) > 0 && "DELETED" === trim($outLines[count($outLines) - 1])) {
+            return true;
         }
         throw new \Exception(implode("\n", $outLines));
     }

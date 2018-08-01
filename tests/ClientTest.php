@@ -77,4 +77,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEmpty($this->client->get($key1));
         $this->assertEmpty($this->client->get($key2));
     }
+
+    public function testDeleteNotFound()
+    {
+        $this->expectException("\Exception");
+        $key = "column1";
+        $this->client->delete($key);
+    }
 }
