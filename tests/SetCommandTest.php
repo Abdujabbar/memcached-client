@@ -8,7 +8,8 @@
 
 class SetCommandTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGenerate() {
+    public function testGenerate()
+    {
         $message = "world";
         $key = "hello";
         $time = 30;
@@ -18,9 +19,9 @@ class SetCommandTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $command->generate());
     }
 
-    public function testArgumentException() {
+    public function testArgumentException()
+    {
         $this->expectException("\InvalidArgumentException");
         $command = new \abdujabbor\memcached\commands\Set([]);
     }
-
 }

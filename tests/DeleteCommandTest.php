@@ -18,7 +18,8 @@ class DeleteCommandTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function testArgumentException() {
+    public function testArgumentException()
+    {
         $this->expectException("\InvalidArgumentException");
         $command = new \abdujabbor\memcached\commands\Delete([]);
     }

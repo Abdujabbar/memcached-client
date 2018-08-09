@@ -8,7 +8,8 @@
 
 class GetCommandTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGeneration() {
+    public function testGeneration()
+    {
         $key = "hello";
         $command = new \abdujabbor\memcached\commands\Get(['key' => $key]);
         $expected = sprintf("get %s\r\n", $key);
